@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import HelperFunc from '../Utility/Helper';
 
 
-const Timer = ({ onEnd }) => {
+const Timer = ({ onEnd, paused }) => {
     const vite_timer = import.meta.env.VITE_TIMER;
     const vite_interval = import.meta.env.VITE_INTERVAL;
     const [counter, setCounter] = useState(vite_timer);
@@ -12,16 +12,18 @@ const Timer = ({ onEnd }) => {
         if (counter <= 0) {
             onEnd();
         }
-    }, [counter])
+    }, [counter, onEnd])
     useEffect(() => {
         let timer;
-        timer = setInterval(() => {
-            setCounter((prev) => prev -= vite_interval)
-        }, vite_interval)
-        return () => {
-            clearInterval(timer)
+        if (!paused) {
+            timer = setInterval(() => {
+                setCounter((prev) => prev -= vite_interval)
+            }, vite_interval)
+            return () => {
+                clearInterval(timer)
+            }
         }
-    }, [vite_interval]);
+    }, [vite_interval, paused]);
 
     return (
         <div className="timer">

@@ -66,12 +66,29 @@ button:active {
 .gameWrapper h1 {
   color: #77510a;
   margin: 0; }
+.gameWrapper .buttonsWrapper {
+  display: flex;
+  column-gap: 10px; }
 .gameWrapper .button {
   background-color: #ff901e;
   color: #fff;
   font-weight: 600;
   border: 2px solid #fff;
   border-style: solid; }
+.gameWrapper .iconButton {
+  padding: 5px;
+  border-radius: 100px; }
+  .gameWrapper .iconButton .icon {
+    display: inline;
+    position: relative;
+    top: 0.23em;
+    width: 2em; }
+.gameWrapper .buttonWithText .icon {
+  display: inline;
+  position: relative;
+  top: 0.23em;
+  padding-left: 5px;
+  width: 1.2em; }
 .gameWrapper .sky {
   min-height: 40vh;
   background: #afd1ff;
