@@ -1,8 +1,30 @@
 import { useState } from 'react';
+import GameState from '../Utility/GameState';
+import Timer from './Timer';
 
 const GameScreen = (props) => {
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [gameState, setGameState] = useState(GameState);
+    const { isPlaying, isEnded, isPaused } = gameState;
 
+    const startGame = () => {
+        console.log('test')
+        setGameState(prev => ({
+            ...prev,
+            isPlaying: true
+        }))
+    };
+    const endGame = () => {
+        setGameState(prev => ({
+            ...prev,
+            isPlaying: false
+        }))
+    };
+    const pauseGame = () => {
+        setGameState(prev => ({
+            ...prev,
+            isPaused: true
+        }))
+    };
     return (
         <div className="gameWrapper">
             <div className="sky">
@@ -14,14 +36,10 @@ const GameScreen = (props) => {
                         <div className="gameHeader">
                             <button
                                 className="startButton button"
-                                onClick={() => {
-                                    setIsPlaying(!isPlaying);
-                                }}>
+                                onClick={endGame}>
                                 Stop Game
                             </button>
-                            <div className="timer">
-                                Timer: 00:00
-                            </div>
+                            <Timer onEnd={endGame} />
                         </div>
                     )}
                 </div>
@@ -31,9 +49,7 @@ const GameScreen = (props) => {
                     {(!isPlaying) && (
                         <button
                             className="startButton button"
-                            onClick={() => {
-                                setIsPlaying(!isPlaying);
-                            }}>
+                            onClick={startGame}>
                             Start Game
                         </button>
                     )}
