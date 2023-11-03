@@ -3,9 +3,13 @@ import Icon from '@mdi/react';
 import { mdiPlayCircle, mdiStop, mdiPause, mdiPlay } from '@mdi/js';
 import GameState from '../Utility/GameState';
 import Timer from './Timer';
+import Slime from './Slime';
+import { constants } from '../Utility/Constants';
 
 const GameScreen = (props) => {
     const [gameState, setGameState] = useState(GameState);
+    const [slimes, setSlimes] = useState(Array(constants.moleNo).fill(''));
+    console.log(slimes)
     const { isPlaying, isEnded, isPaused } = gameState;
 
     const startGame = () => {
@@ -70,6 +74,13 @@ const GameScreen = (props) => {
                             Start Game
                             <Icon className="icon" path={mdiPlayCircle} />
                         </button>
+                    )}
+                    {(isPlaying && !isPaused) && (
+                        slimes.map((slime, index) => {
+                            return (
+                                <Slime key={index} />
+                            )
+                        })
                     )}
                 </div>
             </div>

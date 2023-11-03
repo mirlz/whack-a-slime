@@ -1,11 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import HelperFunc from '../Utility/Helper';
-
+import { constants } from '../Utility/Constants';
 
 const Timer = ({ onEnd, paused }) => {
-    const vite_timer = import.meta.env.VITE_TIMER;
-    const vite_interval = import.meta.env.VITE_INTERVAL;
-    const [counter, setCounter] = useState(vite_timer);
+    const { timer, interval } = constants;
+    const [counter, setCounter] = useState(timer);
     const [minutes, seconds] = useMemo(() => HelperFunc.getReadableTimerFromMS(counter), [counter]);
 
     useEffect(() => {
@@ -17,13 +16,13 @@ const Timer = ({ onEnd, paused }) => {
         let timer;
         if (!paused) {
             timer = setInterval(() => {
-                setCounter((prev) => prev -= vite_interval)
-            }, vite_interval)
+                setCounter((prev) => prev -= interval)
+            }, interval)
             return () => {
                 clearInterval(timer)
             }
         }
-    }, [vite_interval, paused]);
+    }, [interval, paused]);
 
     return (
         <div className="timer">
